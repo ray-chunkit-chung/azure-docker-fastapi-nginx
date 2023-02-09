@@ -1,9 +1,8 @@
 # azure-docker-fastapi-nginx
 
-Code based is by this project
+Code base is from this project
 <https://github.com/rafsaf/docker-fastapi-projects-nginx>
 
 <https://docker-fastapi-projects.readthedocs.io/en/latest/nginx.html>
 
-This is to deploy to azure
-
+This exercise is to deploy the app to azure web service
