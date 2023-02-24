@@ -5,4 +5,4 @@ my_fastapi_app = FastAPI()
 
 @my_fastapi_app.get("/")
 async def root():
-    return {"Nginx": "I'm alive over v9000"}
+    return {"Nginx": "I'm alive over 9000"}
