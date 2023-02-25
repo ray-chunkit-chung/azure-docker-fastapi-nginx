@@ -1,5 +1,7 @@
 # azure-docker-fastapi-nginx
 
+test
+
 Code base is from this project
 <https://github.com/rafsaf/docker-fastapi-projects-nginx>
 
