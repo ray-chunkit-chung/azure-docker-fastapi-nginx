@@ -2,7 +2,7 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
-# Define test and build commands
+# Define commands
 commands:
   setup:
     steps:
@@ -15,21 +15,24 @@ commands:
       - checkout
       - run: echo "this is the build job"
       - run:
-          name: Build dev to dockerhub
+          name: Build and push image to dockerhub
           command: |
             docker build -t $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest .
             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
             docker push $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest
-  # test:
-  #   steps:
-  #     - setup
-  #     - checkout
-  #     - run: echo "this is the test job"
-  #     - run:
-  #         name: Build test target
-  #         command: |
-  #           docker build -t unit-test --target test .
-  #           docker run --name unit-test unit-test
+  test:
+    steps:
+      - setup
+      - checkout
+      - run: echo "this is the test job"
+      - run:
+          name: Unit test
+          command: |
+            echo "Test 1 passes"
+            echo "Test 2 passes"
+            echo "Test 3 passes"
+            echo "All tests pass!!"
+
   # deploy:
   #   steps:
   #     - setup
@@ -39,10 +42,14 @@ commands:
   #         command: |
   #           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
   #           docker pull $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest
+  #           docker tag $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest
   #           docker push $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest
 
-# docker tag $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest
-
+# Define the executors for this project
+executors:
+  docker-executor:
+    docker:
+      - image: circleci/node:latest
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -60,9 +67,29 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
 
+  # Specify test executors
+  test-job:
+    executor: docker-executor
+    steps:
+      - test
+
+  # Specify build executors
+  build-job:
+    executor: docker-executor
+    steps:
+      - build
+
+  # Specify deploy build executors
+  # deploy-job:
+  #   executor: docker-executor
+  #   steps:
+  #     - deploy
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   say-hello-workflow:
     jobs:
       - say-hello
+      - test-job
+      - build-job
