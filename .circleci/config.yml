@@ -17,10 +17,8 @@ commands:
       - run:
           name: Unit test
           command: |
-            echo "Test 1 passes"
-            echo "Test 2 passes"
-            echo "Test 3 passes"
-            echo "All tests pass!!"
+            python -m pytest tests/
+
   build:
     steps:
       - setup
