@@ -2,6 +2,48 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+# Define test and build commands
+commands:
+  setup:
+    steps:
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
+  build:
+    steps:
+      - setup
+      - checkout
+      - run: echo "this is the build job"
+      - run:
+          name: Build dev to dockerhub
+          command: |
+            docker build -t $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest .
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+            docker push $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest
+  # test:
+  #   steps:
+  #     - setup
+  #     - checkout
+  #     - run: echo "this is the test job"
+  #     - run:
+  #         name: Build test target
+  #         command: |
+  #           docker build -t unit-test --target test .
+  #           docker run --name unit-test unit-test
+  # deploy:
+  #   steps:
+  #     - setup
+  #     - run: echo "this is the deploy job"
+  #     - run:
+  #         name: Push tested image to auto-deploy
+  #         command: |
+  #           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+  #           docker pull $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest
+  #           docker push $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest
+
+# docker tag $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest
+
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
