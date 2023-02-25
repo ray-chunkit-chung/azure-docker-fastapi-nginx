@@ -49,7 +49,7 @@ commands:
 executors:
   docker-executor:
     docker:
-      - image: circleci/node:latest
+      - image: cimg/base:stable
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -88,8 +88,8 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  azure-test1-workflow:
     jobs:
-      - say-hello
+      # - say-hello
       - test-job
       - build-job
