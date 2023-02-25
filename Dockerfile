@@ -20,10 +20,9 @@ RUN mkdir build
 
 # We create folder named build for our app.
 
-COPY . ./build
+COPY requirements.txt ./build/requirements.txt
 
 # We copy our app folder to the /build
-
 
 RUN apt update && apt install -y python3-pip                                  \
     && pip3 install -r /build/requirements.txt                               \
@@ -39,9 +38,9 @@ RUN apt update && apt install -y python3-pip                                  \
 
 # Note we use /build/requirements.txt since this is our file
 
+COPY . ./build
+
+
 EXPOSE 80
 
 # Instruction informs Docker that the container listens on port 80
-
-
-
