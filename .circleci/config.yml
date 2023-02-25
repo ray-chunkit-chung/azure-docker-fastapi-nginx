@@ -47,7 +47,7 @@ commands:
 executors:
   docker-executor:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/python:3.11.2
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
