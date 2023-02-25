@@ -9,17 +9,6 @@ commands:
       - setup_remote_docker:
           version: 20.10.14
           docker_layer_caching: true
-  build:
-    steps:
-      - setup
-      - checkout
-      - run: echo "this is the build job"
-      - run:
-          name: Build and push image to dockerhub
-          command: |
-            docker build -t $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest .
-            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-            docker push $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest
   test:
     steps:
       - setup
@@ -32,6 +21,17 @@ commands:
             echo "Test 2 passes"
             echo "Test 3 passes"
             echo "All tests pass!!"
+  build:
+    steps:
+      - setup
+      - checkout
+      - run: echo "this is the build job"
+      - run:
+          name: Build and push image to dockerhub
+          command: |
+            docker build -t $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest .
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+            docker push $DOCKER_USERNAME/azure-docker-fastapi-nginx:latest
 
   # deploy:
   #   steps:
