@@ -8,3 +8,5 @@ Code base is from this project
 <https://docker-fastapi-projects.readthedocs.io/en/latest/nginx.html>
 
 This exercise is to deploy the app to azure web service
+
+Hello world over 9000
