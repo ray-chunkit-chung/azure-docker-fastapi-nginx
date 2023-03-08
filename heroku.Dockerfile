@@ -1,4 +1,4 @@
-FROM python3.9
+FROM python:3-alpine
 
 COPY requirements.txt ./build/requirements.txt
 
