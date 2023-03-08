@@ -11,8 +11,6 @@ This exercise is to deploy the app to azure web service
 
 Hello world over 9000
 
-
-
 ## For heroku
 
 ```bash
