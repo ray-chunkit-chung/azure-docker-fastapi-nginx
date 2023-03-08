@@ -18,5 +18,5 @@ Hello world over 9000
 ```bash
 heroku stack:set container -a azure-docker-fastapi-nginx
 git push heroku main
-bash
-
+heroku logs --app azure-docker-fastapi-nginx --tail
+```
