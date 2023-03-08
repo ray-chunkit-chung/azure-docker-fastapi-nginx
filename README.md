@@ -10,3 +10,13 @@ Code base is from this project
 This exercise is to deploy the app to azure web service
 
 Hello world over 9000
+
+
+
+## For heroku
+
+```bash
+heroku stack:set container -a azure-docker-fastapi-nginx
+git push heroku main
+bash
+
