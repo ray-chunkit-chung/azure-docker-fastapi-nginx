@@ -17,7 +17,7 @@ commands:
       - run:
           name: Unit test
           command: |
-            pip install --upgrade pytest, requests
+            pip install --upgrade pytest requests
             python -m pytest tests/
 
   build:
