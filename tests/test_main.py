@@ -1,7 +1,6 @@
 import os
 import requests
 
-from dotenv import load_dotenv
 from fastapi.encoders import jsonable_encoder
 
 BACKEND_URL = os.environ.get('BACKEND_URL', 'localhost')
