@@ -1,3 +1,13 @@
+import os
+import requests
+
+from dotenv import load_dotenv
+from fastapi.encoders import jsonable_encoder
+
+BACKEND_URL = os.environ.get('BACKEND_URL', 'localhost')
+PORT = os.environ.get('BACKEND_URL', 8000)
+
+
 def test_true_1():
     """
     Always passes
@@ -5,15 +15,13 @@ def test_true_1():
     assert True
 
 
-def test_true_2():
+def test_endpoint_alive():
     """
-    Always passes
+    Happy path: Expect 200
     """
-    assert True
+    headers = {'accept': 'application/json'}
+    response = requests.get(f'{BACKEND_URL}/:{PORT}', headers=headers)
+    content = jsonable_encoder(response.content)
 
-
-def test_true_3():
-    """
-    Always passes
-    """
-    assert True
+    assert response.status_code == 200
+    assert 'Nginx' in content
